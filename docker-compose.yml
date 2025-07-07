@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - controller
+
+  controller:
+    build:
+      context: .
+      dockerfile: controller.Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - inventory
+      - shipping
+
+  inventory:
+    build:
+      context: .
+      dockerfile: inventory.Dockerfile
+    ports:
+      - "3001:3001"
+
+  shipping:
+    build:
+      context: .
+      dockerfile: shipping.Dockerfile
+    ports:
+      - "3002:3002"
