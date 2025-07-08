@@ -36,7 +36,10 @@ function newBook(book) {
 }
 
 function calculateShipping(id, cep) {
-    fetch('http://localhost:3000/shipping/' + cep)
+    const baseUrl = window.location.hostname.includes('github.dev') 
+        ? `https://${window.location.hostname.replace('5000', '3000')}` 
+        : 'http://localhost:3000';
+    fetch(`${baseUrl}/shipping/${cep}`)
         .then((data) => {
             if (data.ok) {
                 return data.json();
@@ -55,7 +58,11 @@ function calculateShipping(id, cep) {
 document.addEventListener('DOMContentLoaded', function () {
     const books = document.querySelector('.books');
 
-    fetch('http://localhost:3000/products')
+    const baseUrl = window.location.hostname.includes('github.dev') 
+        ? `https://${window.location.hostname.replace('5000', '3000')}` 
+        : 'http://localhost:3000';
+
+    fetch(`${baseUrl}/products`)
         .then((data) => {
             if (data.ok) {
                 return data.json();
